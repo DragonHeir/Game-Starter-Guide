@@ -1,59 +1,40 @@
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements ActionListener {
-	Timer Timer;
+	BufferedImage image;
+	ImageObject Block;
+	GameObject Block2;
+	Timer timer;
 	int x = 0;
 	int y = 0;
-	boolean MoveRight;
-	boolean MoveDown;
-	boolean MoveLeft;
-	boolean MoveUp;
 
 	public void paintComponent(Graphics g) {
-		g.fillRect(x, y, 16, 16);
+		Block.draw(g);
+		Block2.draw(g);
 	}
 
 	GamePanel() {
-		Timer = new Timer(1000 / 24, this);
-		Timer.start();
+		timer = new Timer(1000 / 24, this);
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(this.getClass().getResourceAsStream("Block.png"));
+		} catch (Exception e) {
+			System.out.println("There was an error loading the image");
+		}
+		Block = new ImageObject(10, 10, 10, 10, image);
+		Block2 = new GameObject(10, 20, 20, 20);
+		timer.start();
 	}
 
 	public void actionPerformed(ActionEvent e) {
 
-		if (x <= 0 && y <= 0) {
-			MoveUp = false;
-			MoveRight = true;
-		}
-		if (x >= 480 && y <= 0) {
-			MoveRight = false;
-			MoveDown = true;
-		}
-		if (x >= 480 && y >= 460) {
-			MoveDown = false;
-			MoveLeft = true;
-		}
-		if (x <= 0 && y >= 460) {
-			MoveLeft = false;
-			MoveUp = true;
-		}
-
-		if (MoveRight) {
-			x = x + 20;
-		}
-		if (MoveDown) {
-			y = y + 20;
-		}
-		if (MoveLeft) {
-			x = x - 20;
-		}
-		if (MoveUp) {
-			y = y - 20;
-		}
 		repaint();
 	}
 }
