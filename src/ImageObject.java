@@ -13,7 +13,9 @@ public class ImageObject extends GameObject {
 	}
 
 	public void update(){
-
+		if (InputManager.LEFT_ARROW_KEY){
+			x--;
+		}
 	}
 	public void draw(Graphics g) {
 		g.drawImage(image, x, y, width, height, null);

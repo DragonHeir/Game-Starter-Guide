@@ -9,12 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements ActionListener {
-	BufferedImage image;
+	//BufferedImage image;
 	ImageObject Block;
 	Timer gametimer;
-	int x = 0;
-	int y = 0;
-	Color red;
 
 	public void paintComponent(Graphics g) {
 		Block.draw(g);
@@ -33,8 +30,9 @@ public class GamePanel extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		repaint();
 		Block.update();
+		repaint();
+		
 		
 	}
 }
